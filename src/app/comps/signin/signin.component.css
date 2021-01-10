@@ -1,0 +1,39 @@
+.container{
+    max-width: 420px;
+}
+
+.tp-logo{
+    margin-top: 50px;text-align: center;font-weight: 900;
+    cursor: pointer;outline: none;
+}
+
+.mgTp{
+    margin-top:10%;
+}
+
+.topBtn{
+    margin-top:15px;
+    width: 100%;
+    text-transform: uppercase;
+    font-size: 16px;
+}
+.toggDv{
+    font-size: 14px;margin: 30px;color: #444;
+}
+.link{
+    color: #007bff;cursor: pointer;
+}
+/*
+::placeholder { // Chrome, Firefox, Opera, Safari 10.1+ 
+    color: #007bff !important;
+    opacity: 1; // Firefox 
+}
+
+:-ms-input-placeholder { // Internet Explorer 10-11 
+    color: #007bff !important;
+}
+
+::-ms-input-placeholder {
+    color: #007bff !important;
+}
+*/

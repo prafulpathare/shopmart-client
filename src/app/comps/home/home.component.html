@@ -1,0 +1,114 @@
+
+<app-header></app-header>
+
+<div id="demo" class="carousel slide" data-ride="carousel">
+
+    <!-- Indicators -->
+    <ul class="carousel-indicators" *ngIf="!serv.isMobile()">
+        <li data-target="#demo" data-slide-to="0" class="active"></li>
+        <li data-target="#demo" data-slide-to="1"></li>
+        <li data-target="#demo" data-slide-to="2"></li>
+    </ul>
+
+    <!-- The slideshow -->
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="https://www.bismigroup.com/Content/images/bismi-deal-banner.jpg"
+                alt="Los Angeles" style="width: 100%;">
+        </div>
+        <div class="carousel-item">
+            <img src="https://images-eu.ssl-images-amazon.com/images/G/31/img17/AmazonBusiness/JanArt/Gateway/MainBanner_1500_300_1701.jpg"
+                alt="Chicago" style="width: 100%;">
+        </div>
+        <div class="carousel-item">
+            <img src="https://images-eu.ssl-images-amazon.com/images/G/31/img19/Audio/NuRepublic/Days/Offer-Banner---1500x300.jpg"
+                alt="New York" style="width: 100%;">
+        </div>
+    </div>
+
+    <!-- Left and right controls -->
+    <a class="carousel-control-prev" href="#demo" data-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+    </a>
+    <a class="carousel-control-next" href="#demo" data-slide="next">
+        <span class="carousel-control-next-icon"></span>
+    </a>
+
+</div>
+<br />
+
+
+  
+<div class="prdPane">
+    <div class="ojdv">trending today</div>
+    <div class="prdCntr">
+        <div *ngFor="let p of prd" class="prdCard">
+            <div class="prdImg">
+                <img src="{{p.imgurl[0]}}" alt="{{p.name}}" />
+            </div>
+            <div class="plko">
+                <a [routerLink]="['product', p._id]">
+                    <div class="prdName color-1" >{{p.name | slice: 0: 30}}</div>
+                </a>
+                <div class="prdPrice" style="color: green;font-weight: bold;vertical-align: top;">
+                    <i class="fa fa-rupee" style="font-size:15px;"></i>
+                    <span > {{p.price.toFixed(2).toLocaleString('en-IN')}}</span>
+                </div>
+                <!-- <div class="btn" (click)="cartServ.cart.addToCart(p)" >Add to Cart</div> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="height: 1px;background:#eeee;"></div>
+
+  
+<div class="prdPane">
+    <div class="ojdv">trending today</div>
+    <div class="prdCntr">
+        <div *ngFor="let p of prd2" class="prdCard">
+            <div class="prdImg">
+                <img src="{{p.imgurl[0]}}" alt="{{p.name}}" />
+            </div>
+            <div class="plko">
+                <a [routerLink]="['product', p._id]">
+                    <div class="prdName color-1" >{{p.name | slice: 0: 30}}</div>
+                </a>
+                <div class="prdPrice" style="color: green;font-weight: bold;vertical-align: top;">
+                    <i class="fa fa-rupee" style="font-size:15px;"></i>
+                    <span > {{p.price.toFixed(2).toLocaleString('en-IN')}}</span>
+                </div>
+                <!-- <div class="btn" (click)="cartServ.cart.addToCart(p)" >Add to Cart</div> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="height: 1px;background:#eeee;"></div>
+
+  
+<div class="prdPane">
+    <div class="ojdv">trending today</div>
+    <div class="prdCntr">
+        <div *ngFor="let p of prd3" class="prdCard">
+            <div class="prdImg">
+                <img src="{{p.imgurl[0]}}" alt="{{p.name}}" />
+            </div>
+            <div class="plko">
+                <a [routerLink]="['product', p._id]">
+                    <div class="prdName color-1" >{{p.name | slice: 0: 30}}</div>
+                </a>
+                <div class="prdPrice" style="color: green;font-weight: bold;vertical-align: top;">
+                    <i class="fa fa-rupee" style="font-size:15px;"></i>
+                    <span > {{p.price.toFixed(2).toLocaleString('en-IN')}}</span>
+                </div>
+                <!-- <div class="btn" (click)="cartServ.cart.addToCart(p)" >Add to Cart</div> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="height: 1px;background:#eeee;"></div>
+
+
+<app-footer></app-footer>

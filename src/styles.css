@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Asap:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap');
+
+*{
+	margin: 0;padding: 0;box-sizing: border-box;
+}
+body{
+	font-family: 'Asap', sans-serif;
+	font-size: 13px;
+}
+
+.bgclr-1{ background-color: #fcb900;}
+.color-1{ color:#007bff; }
+
+.btn{
+	cursor: pointer;display: inline;
+	text-transform: capitalize;
+	font-size: 14px;
+	/* background-color: #007bff; */
+	background-color: #fcb900;
+	color: #000;padding: 7px 20px;
+	border: 0.05em solid #000;border-radius: 3px;
+}
+.btn:hover{
+	color: #FFF;
+	border-color:#fff;
+}
+.csr{
+	cursor: pointer;
+}
+
+.fa{
+	margin-right: 4px;
+}

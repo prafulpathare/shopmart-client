@@ -1,0 +1,77 @@
+<div class="container" style="max-width: 360px;margin-left: auto;margin-right: auto;">
+    <!-- <h1 class="tp-logo" [routerLink]="['/']">shop<span class="color-1">Mart</span></h1> -->
+    <img  [routerLink]="['/']" src="{{mainServ.logo_uri}}" style="height: 50px;display:block;margin: 50px auto;" />
+
+
+    <div class="alert alert-danger" *ngIf="err2">
+        <strong>Error!</strong> {{err2}}.
+    </div>
+      
+    <div *ngIf="status == 0" >
+        <form class="col-md offset-md" [formGroup]="addEmailForm" (ngSubmit)="addEmail()">
+            <h4 class="title">Email Verification</h4>
+            <hr class="divisor">
+            <div class="form-group">
+                <input type="text" class="form-control"  aria-describedby="fnameHelp" placeholder="Enter email" 
+                    formControlName="email"
+                />
+            </div>
+            <button type="submit" class="btn btn-primary topBtn">Send Email</button>
+        </form>
+    </div>
+
+    <div *ngIf="status == 1" >
+        <div style="padding: 10px;margin: 0 0 30px 0;">
+            Shopmart has sent token on <b>{{addEmailForm.controls['email'].value}}</b>
+        </div>
+        <form class="col-md offset-md" [formGroup]="confirmEmailForm" (ngSubmit)="confirmEmail()">
+            <h4 class="title">Confirm email</h4>
+            <hr class="divisor">
+            <div class="form-group">
+                <input type="number" class="form-control"  aria-describedby="fnameHelp" placeholder="Token" 
+                    formControlName="token"
+                />
+            </div>
+            <button type="submit" class="btn btn-primary topBtn">Confirm Email</button>
+        </form>
+    </div>
+
+    <div *ngIf="status == 2" >	
+        <form class="col-md offset-md" [formGroup]="signUpForm" (ngSubmit)="makeSignUp()">
+            <h4 class="title">Create new Account</h4>
+            <hr class="divisor">
+
+            <input type="hidden" class="form-control"  aria-describedby="fnameHelp"
+                formControlName="uid"
+            />
+
+            <div class="form-group">
+                <input type="text" class="form-control"  aria-describedby="fnameHelp" placeholder="Full name" 
+                    formControlName="full_name"
+                />
+            </div>
+            <div class="form-group">
+                <input type="email" class="form-control" placeholder="Email"
+                    formControlName="email" disabled="disabled"
+                />
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control"  placeholder="Contact no."
+                    formControlName="contact"
+                />
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control"  placeholder="Password"
+                    formControlName="password"
+                />
+            </div>
+           
+            <button type="submit" class="btn btn-primary topBtn">Sign Up</button>
+        </form>
+    </div>
+
+    <div class="toggDv" style="margin: 30px 15px;">
+        Already have and account ? <a [routerLink]="['/signin']">Sign In</a>
+    </div>
+</div>
+

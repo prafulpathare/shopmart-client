@@ -1,0 +1,155 @@
+<app-header></app-header>
+
+<div class="wrpdv" style="margin-top: 20px;">
+	<div class="pdfui thmbs-cntr">
+		<div *ngFor="let nthimgurl of product.imgurl" class="fpgls" >
+			<div  style="
+				height: 60px;width: 60px;margin-bottom: 10px;
+				background-image: url({{nthimgurl}});
+				background-position: center;
+				background-size: cover;
+				background-repeat: no-repeat;
+			" (click)='setBigImg(nthimgurl)' class="csr"></div>
+		</div>
+	</div>
+	<div class="pdfui">
+		<div class="psdls" >
+			<img id="bigImg"
+				(mouseover)="showHover = true"
+				(mouseout)="showHover = false"
+				src="{{bigImg}}" style="
+				position: absolute;
+				max-width: 100%;max-height: 100%;
+				margin: auto;top: 0;right: 0;left: 0;bottom: 0;
+			" />
+		</div>		
+	</div>
+			
+	<div *ngIf="showHover"  style="
+		box-shadow: 0 1px 1px 1px #eeee;width:750px;height:600px; position: fixed;left:40%;
+		background-image: url({{bigImg}});
+	"></div>
+
+	<!-- thumbnails for mobile -->
+	<div class="mb-thmb-wrp">
+		<div *ngFor="let nthimgurl of product.imgurl" class="mb-thmbs" >
+			<div  style="
+				height: 60px;width: 100%;
+				background-image: url({{nthimgurl}});
+				background-position: center;
+				background-size: cover;
+				background-repeat: no-repeat;
+			" (click)='setBigImg(nthimgurl)'></div>
+		</div>
+	</div>
+	
+	<div class="pdfui prd-dtls">
+		<div>		
+			<div>
+				<div class="name">{{product.name}}</div>
+				<div>
+					by <span class="company">{{product.company}}</span>
+					<i class="fa fa-check-circle" style="color: green;margin-left:5px;font-size:15px;"></i>
+				</div>
+
+				<div>
+					<span *ngFor="let x of [1,2,3]">
+						<i class="fa fa-star" style="color: #ffa500;margin:2px;font-size:15px;"></i>
+					</span>
+					<span *ngFor="let x of [1]">
+						<i class="fa fa-star-half-o" style="color: #ffa500;margin:2px;font-size:15px;"></i>
+					</span>
+				</div>
+
+				<div class="prdPrice" style="color: green;font-weight: bold;vertical-align: top;">
+                    <i class="fa fa-rupee" style="font-size:15px;"></i>
+                    <span style="font-size: 20px;">
+                    	{{product.price.toLocaleString('en-IN')}}
+                    </span>
+                </div>
+				<ul style="margin: 15px;max-width: 360px;">
+					<li *ngFor="let des of product.description">{{des}}</li>
+				</ul>
+				<!-- <a (click)="cartServ.cart.addToCart(product)" class="btn" style="display: inline-block;float: left;color: #FFF;">Add to Cart</a> -->
+			</div>
+		</div>	
+	</div>
+	<div class="pdfui">
+
+	</div>
+	<div class="pdfui">
+		<div style="padding: 30px;">
+			<button
+				class="btn btn-primary"
+				*ngIf="!cartServ.cart.productExists(product._id)"
+				(click)="cartServ.cart.addToCart(product)"
+				style="display: block;width: 100%"
+			>Add to Cart</button>
+			<button
+				class="btn btn-primary"
+				*ngIf="cartServ.cart.productExists(product._id)"
+				style="display:block;width: 100%;background: green; color: #FFF;border:none;"
+			>Added to Cart</button>
+		</div>
+	</div>
+</div>
+
+<div style="height: 0.5px;background: #eee;"></div>
+
+<!-- COMMENTS PANE -->
+<div class="wrp-comment" style="background: #f8f8f8ff;">
+
+<div class="dpos" style="padding: 20px;max-width: 720px;margin: 0;">
+
+	<div *ngIf="serv.user.isAuthenticated">
+		<form [formGroup]="reviewForm" (ngSubmit)="addReview()">
+			<textarea  formControlName="review_txt" placeholder="Add Review" rows="3" style="padding: 7px;border:none;width: calc(100% - 80px);display: inline-block;"></textarea>
+			<button class="btn btn-primary">Post</button>
+		</form>
+	</div>
+	
+	<div class="ibsp" style="clear: both;margin-top: 10px;">
+		<span class="odba" style="font-weight: bold;"> {{reviews_count}} reviews.</span>
+		<!-- reviews  -->
+		<br />
+		<div *ngFor="let review of reviews" class="ovsp">
+			<div class="wspa">
+				<span class="gapg">{{review.name}}</span>
+				<span class="gxpg">
+					<i class="fa fa-clock-o" aria-hidden="true"></i>
+					{{review.date_created}}
+				</span>
+			</div>
+			<div class="wshe">{{review.review_txt}}</div>
+		</div>
+	</div>
+</div>
+</div>
+<!-- COMMENTS PANE END -->
+  
+<!-- PRODUCTS LIST -->
+<div class="prdPane">
+	<div class="ojdv" style="text-transform: none;font-weight: normal;">
+		People who bought {{product.name}} also bought
+	</div>
+    <div class="prdCntr">
+        <div *ngFor="let p of prd3" class="prdCard">
+            <div class="prdImg">
+                <img src="{{p.imgurl[0]}}" alt="{{p.name}}" />
+            </div>
+            <div class="plko">
+                <a (click)="reload(p._id)">
+                    <div class="prdName color-1" >{{p.name | slice: 0: 30}}</div>
+                </a>
+                <div class="prdPrice" style="color: green;font-weight: bold;vertical-align: top;">
+                    <i class="fa fa-rupee" style="font-size:15px;"></i>
+                    <span> {{p.price.toLocaleString('en-IN')}}</span>.00
+                </div>
+                <!-- <div class="btn" (click)="cartServ.cart.addToCart(p)" >Add to Cart</div> -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- PRODUCTS LIST END -->
+
+<app-footer></app-footer>

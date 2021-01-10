@@ -1,0 +1,73 @@
+a.update-btn{
+	color: blue;font-size: 13px;margin: 0 0 0 20px;cursor:pointer;
+	display: none;
+}
+.pamw{
+	padding: 10px;
+}
+.pdgf{
+	max-width: 360px;
+	display: inline-block;
+	vertical-align: top;
+}
+.ordPrd:nth-child(2n){
+	background: #f6f6f6;
+}
+.orderspane{
+	min-width: 640px;
+}
+.pscg{
+	font-weight: bold;
+	text-transform: capitalize;
+	line-height: 40px;
+}
+.pass{
+
+}
+.edfr{
+	padding:10px;
+}
+.edfr:hover a.update-btn{
+	display: inline;
+}
+.hdsd{
+	font-weight: bold;
+	font-size: 13px;
+	line-height: 30px;
+	text-transform: uppercase;
+}
+.txtc{
+	font-size: 15px;
+}
+.fa{
+	margin-right: 10px;
+}
+input{
+	display: block;
+	width: 100%;
+	padding: 0 10px;
+	line-height: 36px;
+	margin-top: 10px;
+	outline: none;
+	border: 1px solid #eee;
+	background: #f6f6f6;
+}
+button[type=submit]{
+	margin-top: 15px;
+}
+
+
+
+@media only screen and (min-width: 300px) and (max-width: 720px)  {
+body {
+}
+
+.pdgf{
+	max-width: 100%;
+	display: block;
+	width: 100%;
+}
+.orderspane{
+	min-width: 100%;
+}
+}

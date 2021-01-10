@@ -1,0 +1,191 @@
+<app-header></app-header>
+
+
+<div class="container" *ngIf="cartServ.cart.getCartCount() < 1" style="
+    height: 90vh;
+    background-repeat: no-repeat;background-size: 200px;background-position: center;
+    background-image: url('https://cdn.dribbble.com/users/204955/screenshots/4930541/emptycart.png');
+"></div>
+
+
+<div class="container" *ngIf="cartServ.cart.getCartCount() >= 1" style="margin: 0 auto;user-select: none;">
+    <div style="font-size: 24px;line-height: 80px;">My Cart</div>
+
+
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col" colspan="2">Product</th>
+                            <th scope="col" class="text-right">Qty</th>
+                            <th scope="col" class="text-right">Price</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let itm of cartServ.cart.items">
+                            <td><img src="{{itm.imgurl}}" alt="{{itm.name}}" style="width: 100px;" /></td>
+                            <td scope="col">
+                                <div style="">{{itm.name}}</div>
+                                <div style="font-size: 12px;">{{itm.descs}}</div>
+                            </td>
+                            <td scope="col" class="text-right">
+                                <!-- <select  (change)="cartServ.cart.updateQty(itm._id, $event.target.value)"> -->
+                                <select (change)="itm.noofitems = $event.target.value; itm.updateCartItemTotalPrice(); cartServ.cart.updatePrices();">
+                                    <option class="" *ngFor="let qty of itemQty" [selected]="qty == itm.noofitems" [value]="qty">
+                                       {{qty}}
+                                    </option>
+                                </select>
+                            </td>
+                            <td scope="col" class="text-right" style="min-width: 200px;">
+                                <i class="fa fa-rupee" style="font-size:15px;"></i>
+                                <span> {{itm.totalprice.toFixed(2).toLocaleString('en-IN')}}</span>
+                            <td>
+                                <button class="btn btn-trash" (click)="cartServ.cart.removeFromCart(itm._id)">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>Sub-Total</td>
+                            <td class="text-right" style="min-width: 200px;"><i class="fa fa-rupee" style="font-size:15px;"></i> {{cartServ.cart.cart_price.toFixed(2).toLocaleString('en-IN')}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>Shipping</td>
+                            <td class="text-right"><i class="fa fa-rupee" style="font-size:15px;"></i> {{cartServ.cart.ship_price.toFixed(2).toLocaleString('en-IN')}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><strong>Total</strong></td>
+                            <td class="text-right" style="color: green;">
+                                <strong>
+                                    <i class="fa fa-rupee" style="font-size:18px;"></i>
+                                    <span style="font-size: 22px;"> {{cartServ.cart.final_price.toFixed(2).toLocaleString('en-IN')}}</span>
+                                </strong>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col mb-2" *ngIf="!serv.user.isAuthenticated">
+        <div class="alert alert-danger" role="alert">
+            Please <a [routerLink]="['/auth']"><b>Log In</b></a> to Checkout
+        </div>
+    </div>
+<br />
+<br />
+<br />
+
+    <div  *ngIf="serv.user.isAuthenticated">
+        <h5>Delivery Address</h5><hr />
+
+        <div style="display: flex;vertical-align: top;">
+
+            <div class="addr-opt-wrp" >
+                <div class="csr" *ngIf="serv.user.home_address" (click)="cartServ.cart.setDelvAddr(serv.user.home_address); showCustomAddressBox = false;">
+                    <div [ngStyle]="{'font-weight': cartServ.cart.deliveryaddr == serv.user.home_address ? 'bold' : 'normal' }">Home Address</div>
+                </div>
+                <div class="csr" *ngIf="serv.user.office_address" (click)="cartServ.cart.setDelvAddr(serv.user.office_address);showCustomAddressBox = false;">
+                    <div [ngStyle]="{'font-weight': cartServ.cart.deliveryaddr == serv.user.office_address ? 'bold' : 'normal' }">Office Address</div>
+                </div>
+                <div class="csr" (click)="showCustomAddressBox = true;">
+                    <div [ngStyle]="{'font-weight': showCustomAddressBox == true ? 'bold' : 'normal' }" >Add new Address</div>
+                </div>                
+            </div>
+
+            <div style="flex: 3;margin-left: 15px;">
+                <div class="custom-addr-form" *ngIf="showCustomAddressBox" >
+                    <form [formGroup]="customAddrForm" (ngSubmit)="saveDelAddress()" style="wi">
+                        <input type="text"  formControlName="line_one" placeholder="Address line 1" />
+                        <input type="text" formControlName="line_two" placeholder="Address line 2" />
+                        <input type="text" formControlName="line_three" placeholder="Address line 3" />
+                        <div style="display: flex;">
+                            <input type="text" formControlName="city" placeholder="City" style="" />
+                            <input type="text" formControlName="state" placeholder="State" style="margin-left: 10px;margin-right: 10px;" />
+                            <input type="text" formControlName="pincode" placeholder="Pincode" style="" />
+                        </div>
+
+                        <div style="display: flex;margin-top: 10px;">
+                            <div class="btn btn-primary" style="flex:1;" (click)="saveDelvAddress()" >Save Address</div>                    
+                            <a class="csr color-1" style="flex:1;text-align: center;" (click)="showCustomAddressBox = false">Close</a>
+                        </div>
+                    </form>
+                    <br /><br />
+                </div>
+
+                <div class="" style="background: rgba(0,255,0, 0.08);padding: 10px;">
+                    <div>
+                        {{cartServ.cart.deliveryaddr.line_one}} <br />
+                        {{cartServ.cart.deliveryaddr.line_two}} <br />
+                        {{cartServ.cart.deliveryaddr.line_three}}
+                    </div>
+                    <div>
+                        {{cartServ.cart.deliveryaddr.city}}, 
+                        {{cartServ.cart.deliveryaddr.state}} - 
+                        {{cartServ.cart.deliveryaddr.pincode}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<br /><br /><br />
+
+    <div  *ngIf="serv.user.isAuthenticated">
+        <h5>Payment </h5><hr />
+
+        <div style="">
+            Pay <b>Rs. <span style="font-size: 22px;">{{cartServ.cart.final_price.toFixed(2).toLocaleString('en-IN')}}</span></b>  via <br /><br />
+            <label class="pay-opt">
+                <input type="radio" name="pay_option" value=""/>
+                <span><img src="https://hvacinds.com/wp-content/uploads/2017/04/Credit-Card-Logos.jpg"></span>
+            </label>
+            <label class="pay-opt">
+                <input type="radio" name="pay_option" value=""/>
+                <span><img src="https://1000logos.net/wp-content/uploads/2017/05/Paypal-Logo.png" /></span>
+            </label>
+            <label class="pay-opt">
+                <input type="radio" name="pay_option" value="" checked="checked" />
+                <span><img style="height: 45px;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7gcAITOfNhKNPmlIQzOX6jgrP9FgFxY8Kyg&usqp=CAU"></span>
+            </label>
+            
+        </div>
+    </div>
+
+
+
+
+<br /><br />
+    <div class="col mb-2" *ngIf="serv.user.isAuthenticated">
+        <div class="row">
+            <!-- <div class="col-sm-12  col-md-6">
+                <button class="btn btn-block btn-light">Continue Shopping</button>
+            </div> -->
+            <div class="col-sm-12 col-md-6 text-right">
+                <button (click)="checkOut()" class="btn btn-lg btn-block btn-success text-uppercase">Checkout</button>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+
+<app-footer></app-footer>

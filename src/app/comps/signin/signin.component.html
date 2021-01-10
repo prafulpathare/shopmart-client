@@ -1,0 +1,42 @@
+<div class="container">
+    <!-- <h1 class="tp-logo" [routerLink]="['/']">shop<span class="color-1">Mart</span></h1> -->
+    <img  [routerLink]="['/']" src="{{mainServ.logo_uri}}" style="height: 50px;display:block;margin: 50px auto;" />
+
+    <div class="row mgTp" style="max-width: 360px;margin-left: auto;margin-right: auto;">
+    	
+        <form class="col-md offset-md" [formGroup]="signInForm" (ngSubmit)="signIn()">
+            <h4 class="title">Sign in</h4>
+            <hr class="divisor">
+
+            <div class="alert alert-danger" *ngIf="err">
+                <strong>Error!</strong> {{err}}.
+            </div>
+
+            
+            <div class="alert alert-info" *ngIf="suc">
+                Account created successfully <strong>Sign In</strong>
+            </div>
+              
+            <div class="form-group">
+                <input type="email" class="form-control"  aria-describedby="emailHelp" placeholder="Email" 
+                    formControlName="email"
+                />
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" placeholder="Password"
+                    formControlName="password"
+                />
+            </div>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="authRadio" />
+                <label class="form-check-label" for="authRadio"> Remember me</label>
+            </div>
+            <button type="submit" class="btn btn-primary topBtn">Sign in</button>
+        </form>
+    </div>
+
+    <div class="toggDv">
+        Dont have an account ? <a [routerLink]="['/signup']">Sign Up</a>
+    </div>
+</div>
+

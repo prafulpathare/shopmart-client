@@ -1,0 +1,116 @@
+<app-header></app-header>
+
+<div style="display: flex;">
+
+    <!-- LEFT NAV -->
+    <div class="left-bar"  *ngIf="!mainServ.isMobile()">
+        <div class="pkfe">
+            <div class="rdft">categories</div>
+            <div class="qpxh">
+                <a href="">electronics</a>
+                <a href="">clothing</a>
+                <a href="">apearel</a>
+                <a href="">smartphones</a>
+                <a href="">home acc.</a>
+            </div>
+        </div>
+        <div class="pkfe">
+            <div class="rdft">Sort By</div>
+            <div class="qpxh">
+                <a (click)="setSortBy('id')">Relevance</a>
+                <a (click)="setSortBy('views')">Popularity</a>
+                <a (click)="setSortBy('priceAsc')">Price: Low to High</a>
+            </div>
+        </div>
+        <div class="pkfe">
+            <div class="rdft">title</div>
+            <div class="qpxh">
+                <a href="">link 1</a>
+                <a href="">link 1</a>
+                <a href="">link 1</a>
+                <a href="">link 1</a>
+                <a href="">link 1</a>
+            </div>
+        </div>
+        <div class="pkfe">
+            <div class="rdft">title</div>
+            <div class="qpxh">
+                <a href="">link 1</a>
+                <a href="">link 1</a>
+                <a href="">link 1</a>
+            </div>
+        </div>
+    </div>
+    <!-- END LEFT NAV -->
+
+
+    <!-- RESULT PANE -->
+    <div class="res-bar" style="flex: 4;">
+
+        <div style="line-height: 50px;padding-left:10px;"><b>{{noOfProducts}}</b> results found for "{{q}}"</div>
+        <!-- for desktop -->
+        <div *ngIf="!mainServ.isMobile()">
+            <div *ngFor="let prd of products" style="
+                display: flex;padding: 10px;
+                border-bottom: 1px solid #ddd;
+            ">
+                <div style="
+                    flex: 2;max-width: 130px;height: 150px;
+                    background-position: center;
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    background-image: url({{prd.imgurl}});
+                "></div>
+                <div style="
+                    flex: 6;padding: 10px;margin-left: calc(5% - 10px);
+                ">
+                    <a [routerLink]="['/product', prd._id]">
+                        <span class="prdName color-1" style="font-size: 18px;">{{prd.name}}</span>
+                    </a>
+                    <div class="prdComp" style="font-style: italic;font-weight: bold;">{{prd.company}}</div>
+                    <div class="prdRating" style="margin:10px 0;max-width:640px;">
+                    {{prd.description[0]}}
+                    </div>
+                    <div class="prdPrice" style="color: green;font-weight: bold;vertical-align: top;">
+                        <i class="fa fa-rupee" style="font-size:17px;"></i>
+                        <span style="font-size: 17px;"> {{prd.price.toLocaleString('en-IN')}}</span>.00
+                    </div>
+                <!--  <a (click)="cartServ.cart.addToCart(prd)" class="btn atc-btn" style="
+                        margin-top: 10px; color: #FFF;">Add to Cart</a> -->
+                </div>                                               
+            </div>
+        </div>
+        <!-- .for desktop -->
+        <!-- for mobile  -->
+        <div *ngIf="mainServ.isMobile()" style="">
+            <div *ngFor="let prd of products" style="width: 50%;padding: 15px;display: inline-block;vertical-align: top;border-right: 1px solid#eee;border-top: 1px solid#eee;">
+                <div style="
+                    height: 170px;
+                    background-position: center;
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    background-image: url({{prd.imgurl}});
+                "></div>
+                <a [routerLink]="['/product', prd._id]">
+                    <span class="prdName color-1" style="overflow-y: hidden;">{{prd.name}}</span>
+                </a>
+
+                <div class="prdPrice" style="color: green;font-weight: bold;vertical-align: top;">
+                    <i class="fa fa-rupee" style=""></i>
+                    <span >{{prd.price.toLocaleString('en-IN')}}</span>.00
+                </div>
+            </div>
+        </div>
+        <!-- .for mobile  -->
+        <br />
+
+        <span style="margin:0 10px;" *ngFor="let item of [].constructor(totalPages+1); let ic = index;" (click)="updatePageNumber(ic)">
+            <span [ngStyle]="{'font-weight': (pageNumber == 0) ? 'bold' : 'normal' }">{{ic+1}}</span>
+        </span>
+
+    </div>
+
+    <!-- END RESULT PANE -->
+</div>
+
+<app-footer></app-footer>

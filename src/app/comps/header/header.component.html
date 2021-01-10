@@ -1,0 +1,429 @@
+
+<nav *ngIf="!mainServ.isMobile()">
+    <div class="logox" [routerLink]="['/']">
+        <img src="{{mainServ.logo_uri}}" style="width: 120px;" />
+    </div>
+    <div class="seabx">
+        <form [formGroup]="searchForm" (ngSubmit)="mkSearch()">
+            <input type="text" placeholder="Search..." formControlName="q" />
+        </form>
+    </div>
+
+    <div class="tp-nav">
+        <div class="lnk color-1">
+            <a href="#" [routerLink]="['/user']">my account</a>
+        </div>
+        <div class="lnk color-1">
+            <a style="position: relative;color:#0066cc" [routerLink]="['/cart']">
+                cart
+                <span class="cart-badge" *ngIf="cartServ.cart.getCartCount() > 0" style="
+                    position: absolute;top: -5px;right: 10px;
+                    background: red;color: #fff;
+                    width: 15px;line-height: 15px;
+                    border-radius: 7px;font-size: 13px;
+                    font-weight: bold;
+                ">{{cartServ.cart.getCartCount()}}</span>
+            </a>
+            <!-- <a href="#" [routerLink]="['/cart']">cart</a> -->
+        </div>
+    </div>
+</nav>
+
+<nav *ngIf="mainServ.isMobile()">
+    <div class="logox" style="padding: 0 10px;" [routerLink]="['/']">
+        <img src="{{mainServ.logo_uri}}" style="width: 90px;" />
+    </div>
+   
+    <div class="tp-nav">
+        <div class="lnk color-1" style="display: inline;">
+            <a href="#" [routerLink]="['/user']"><img style="width: 20px;" src="https://www.kindpng.com/picc/m/495-4952535_create-digital-profile-icon-blue-user-profile-icon.png" alt=""></a>
+        </div>
+        <div class="lnk color-1">
+            <a style="position: relative;color:#0066cc" [routerLink]="['/cart']">
+                <i class="fa fa-shopping-cart" style="font-size: 17px;display: inline-block;"></i>
+                <span class="cart-badge" *ngIf="cartServ.cart.getCartCount() > 0" style="
+                    position: absolute;top: -5px;right: 10px;
+                    background: red;color: #fff;
+                    width: 15px;line-height: 15px;
+                    border-radius: 7px;font-size: 13px;
+                    font-weight: bold;
+                ">{{cartServ.cart.getCartCount()}}</span>
+            </a>
+            <!-- <a href="#" [routerLink]="['/cart']">cart</a> -->
+        </div>
+    </div>
+</nav>
+
+<div class="seabx" *ngIf="mainServ.isMobile()" style="padding: 10px;padding-top: 0;">
+    <form [formGroup]="searchForm" (ngSubmit)="mkSearch()">
+        <input type="text" placeholder="Search..." formControlName="q" style="min-width: 100%;" />
+    </form>
+</div>
+
+<!-- MEGAMENU -->
+<div id="mgmn" *ngIf="!mainServ.isMobile() && mainServ.showMegaMenu">
+    <div class="sbmn">
+        <div class="hd-ttl">electronics</div>
+        <div class="drpdw" style="margin-left: 0;">
+            <div class="mncol">
+                <div class="edfr">
+                    <div class="sb-ttl">Sub-title</div>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                </div>
+                <div class="edfr">
+                    <div class="sb-ttl">Sub-title</div>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                </div>
+            </div><div class="mncol">
+                <div class="edfr">
+                    <div class="sb-ttl">Sub-title</div>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                </div>
+                <div class="edfr">
+                    <div class="sb-ttl">Sub-title</div>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                </div>
+            </div><div class="mncol">
+                <div class="edfr">
+                    <div class="sb-ttl">Sub-title</div>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                </div>
+                <div class="edfr">
+                    <div class="sb-ttl">Sub-title</div>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                </div>
+            </div><div class="mncol">
+                <div class="edfr">
+                    <div class="sb-ttl">Sub-title</div>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                </div>
+                <div class="edfr">
+                    <div class="sb-ttl">Sub-title</div>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- --><div class="sbmn">
+        <div class="hd-ttl">aaaa</div>
+        <div class="drpdw" style="margin-left: -100%;">
+            <div class="mncol">
+                <div class="edfr">
+                    <div class="sb-ttl">Sub-title</div>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                </div>
+                <div class="edfr">
+                    <div class="sb-ttl">Sub-title</div>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                </div>
+            </div><div class="mncol">
+                <div class="edfr">
+                    <div class="sb-ttl">Sub-title</div>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                </div>
+                <div class="edfr">
+                    <div class="sb-ttl">Sub-title</div>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                </div>
+            </div><div class="mncol">
+                <div class="edfr">
+                    <div class="sb-ttl">Sub-title</div>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                </div>
+                <div class="edfr">
+                    <div class="sb-ttl">Sub-title</div>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                </div>
+            </div><div class="mncol">
+                <div class="edfr">
+                    <div class="sb-ttl">Sub-title</div>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                </div>
+                <div class="edfr">
+                    <div class="sb-ttl">Sub-title</div>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- --><div class="sbmn">
+        <div class="hd-ttl">electroncs</div>
+        <div class="drpdw" style="margin-left:-200%;">
+            <div class="mncol">
+                <div class="edfr">
+                    <div class="sb-ttl">Sub-title</div>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                </div>
+                <div class="edfr">
+                    <div class="sb-ttl">Sub-title</div>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                </div>
+            </div><div class="mncol">
+                <div class="edfr">
+                    <div class="sb-ttl">Sub-title</div>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                </div>
+            </div><div class="mncol">
+                <div class="edfr">
+                    <div class="sb-ttl">Sub-title</div>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                </div>
+                <div class="edfr">
+                    <div class="sb-ttl">Sub-title</div>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                </div>
+            </div><div class="mncol">
+                <div class="edfr">
+                    <div class="sb-ttl">Sub-title</div>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                </div>
+                <div class="edfr">
+                    <div class="sb-ttl">Sub-title</div>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- --><div class="sbmn">
+        <div class="hd-ttl">electronics</div>
+        <div class="drpdw" style="margin-left:-300%;">
+            <div class="mncol">
+                <div class="edfr">
+                    <div class="sb-ttl">Sub-title</div>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                </div>
+                <div class="edfr">
+                    <div class="sb-ttl">Sub-title</div>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                </div>
+            </div><div class="mncol">
+                <div class="edfr">
+                    <div class="sb-ttl">Sub-title</div>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                </div>
+                <div class="edfr">
+                    <div class="sb-ttl">Sub-title</div>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                </div>
+            </div><div class="mncol">
+                <div class="edfr">
+                    <div class="sb-ttl">Sub-title</div>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                </div>
+                <div class="edfr">
+                    <div class="sb-ttl">Sub-title</div>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                </div>
+            </div><div class="mncol">
+                <div class="edfr">
+                    <div class="sb-ttl">Sub-title</div>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                </div>
+                <div class="edfr">
+                    <div class="sb-ttl">Sub-title</div>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- --><div class="sbmn">
+        <div class="hd-ttl">electronics</div>
+        <div class="drpdw" style="margin-left: -400%;">
+            <div class="mncol">
+                <div class="edfr">
+                    <div class="sb-ttl">Sub-title</div>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                </div>
+                <div class="edfr">
+                    <div class="sb-ttl">Sub-title</div>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                </div>
+            </div><div class="mncol">
+                <div class="edfr">
+                    <div class="sb-ttl">Sub-title</div>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                </div>
+                <div class="edfr">
+                    <div class="sb-ttl">Sub-title</div>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                </div>
+            </div><div class="mncol">
+                <div class="edfr">
+                    <div class="sb-ttl">Sub-title</div>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                </div>
+                <div class="edfr">
+                    <div class="sb-ttl">Sub-title</div>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                </div>
+            </div><div class="mncol">
+                <div class="edfr">
+                    <div class="sb-ttl">Sub-title</div>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                </div>
+                <div class="edfr">
+                    <div class="sb-ttl">Sub-title</div>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                    <a href="">item 1</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- -->
+</div>
+

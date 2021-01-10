@@ -1,0 +1,68 @@
+.prdPane{
+  
+  padding: 20px 10px;
+}
+.ojdv{
+  font-weight: bold;font-size: 16px;
+  padding-left: 20px;text-transform: capitalize;
+}
+.prdCntr{
+  overflow-x: scroll;
+    overflow-y: hidden;
+ 
+      white-space:nowrap;
+
+}
+.prdCard{
+  display: inline-block;
+  width: 200px;
+  overflow: hidden;
+  text-align: center;
+  vertical-align:top;
+}
+.prdImg{
+    position: relative;
+    height: 180px;
+}
+.prdImg>img{
+    position: absolute;
+    max-width: 85%;max-height: 85%;
+    left: 0;right: 0;top: 0;bottom: 0;
+    margin: auto;
+    transition: all 0.2s;
+}
+
+.prdCard:hover .prdImg>img{
+  max-width: 90%;max-height: 90%;
+}
+.plko{
+  padding: 0 10px;margin-top: 10px;
+}
+.prdName{
+  cursor: pointer;
+  font-size:15px;
+  overflow: hidden;
+  color: #000;
+}
+.prdName:hover{
+  text-decoration: underline;
+  color: #007bff;
+}
+.prdPrice{
+  margin-top: 10px;
+  font-size: 16px;
+}
+.btn{
+  
+  float: right;
+}
+
+::-webkit-scrollbar {
+  width: 0px;  /* Remove scrollbar space */
+  background: transparent;  /* Optional: just make scrollbar invisible */
+}
+/* Optional: show position indicator in red 
+::-webkit-scrollbar-thumb {
+  background: #FF0000;
+}
+*/

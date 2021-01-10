@@ -1,0 +1,76 @@
+.container{
+	font-size: 16px;
+}
+
+.card{
+	box-shadow: none;
+	border: none;
+}
+.col-md-4{
+	padding: 0;
+}
+
+.card-title{
+	padding: 0;
+	font-size: 16px;
+}
+
+.btn-trash{
+	color: red;
+	background-color: transparent;
+	border: none;
+}
+.btn-trash:hover{
+	background: red;
+	color: #fff;
+}
+.btn-trash:hover i.fa-trash{
+	color: #fff;
+	background: red;
+}
+
+i.fa-trash{
+	color: red;
+	background-color: #fff;
+	border: none;
+	margin: 0;
+	font-size: 16px;
+}
+
+input{
+	outline:none;
+	width: 100%;
+	border: none;
+	padding: 5px 10px;
+	background: transparent;
+}
+
+
+.addr-opt-wrp{
+	flex: 1;
+	padding: 0 15px;
+}
+.addr-opt-wrp > div.csr {
+	padding: 10px;
+}
+.custom-addr-form input[type=text]{
+	background: #f4f4f4;
+	margin: 5px 0;
+}
+
+.pay-opt {
+	display: block;
+	cursor: pointer;
+}
+.pay-opt > input,
+.pay-opt > span{
+	width: auto;
+	display: inline;
+}
+.pay-opt > input{
+	width: 70px;
+}
+.pay-opt > span > img {
+	height: 35px;
+	margin-left: 5px;
+}

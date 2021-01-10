@@ -1,0 +1,31 @@
+.left-bar{
+    width: 220px;
+    padding: 10px 20px;
+}
+.pkfe{
+    clear: both;
+    float: right;
+    width: 180px;
+    padding: 10px;
+    padding-right: 10%;
+    text-transform: capitalize;
+}
+.rdft{
+    margin-bottom: 8px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.qpxh{
+
+}
+.qpxh a{
+    display: block;
+    line-height: 25px;
+    color: #666;
+    font-size: 14px;
+}
+
+
+.qpxh a:hover{
+    color: #0066cc;
+}

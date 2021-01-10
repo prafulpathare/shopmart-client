@@ -1,0 +1,126 @@
+.wrpdv{
+    display: flex;clear: both;margin: 0 10px;
+}
+.pdfui{
+    display: inline-block;
+}
+.mb-thmb-wrp{
+    display: none;
+}
+.fpgls{
+    width: 60px;
+}
+.fpgls>div{
+    display: block;
+}
+.psdls{
+    min-width: 460px;
+    position: relative;min-height: 90vh;margin-left: 30px;
+}
+.slpdsdn:hover{
+    box-shadow: 0 0 1px 2px #ccc;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+#bigImg{
+    cursor: crosshair;
+}
+.prd-dtls{
+    margin-left: 20px;
+
+}
+.name{
+    font-size: 22px;
+}
+.company{
+    font-style: italic;
+    line-height: 50px;
+}
+.price{
+    font-size:16px;
+    color: seagreen;
+    font-weight: bold;
+}
+
+.dofk{
+    max-width: 640px;
+    list-style: none;
+}
+.ovsp{
+    padding: 0;
+    margin-top: 10px;
+}
+.wspa{
+
+}
+.gapg{
+    font-weight: bold;
+}
+.gxpg{}
+.gxpg > i.fa{
+    font-size: 10px;
+    margin: 0 2px 0 15px;
+} 
+.wshe{
+    
+}
+.ovsp a{
+    display: inline-block;
+    font-size: 12px;
+    margin-bottom: 5px;    
+}
+.wvpa{
+    margin-left: 20px;    
+}
+
+
+
+@media only screen and (min-width: 300px) and (max-width: 720px)  {
+body {
+}
+.wrpdv{
+    display: block;
+}
+#bigImg{
+
+}
+.pdfui{
+    margin-top: 10px;
+    clear: both;
+    display: block;
+}
+.fpgls{
+    width: 100%;
+}
+.fpgls>div{
+    display: inline-block;
+    margin: 0 10px;
+}
+.psdls{
+    margin: 0;
+    min-height: 50vh;
+    min-width: 100%;
+    clear: both;
+}
+.thmbs-cntr{
+    display: none;
+}
+.mb-thmb-wrp{
+    display: block;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space:nowrap;
+    margin-top: 10px;
+}
+.mb-thmbs{
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    margin-right: 10px;
+}
+.
+.prd-dtls{
+    margin: 0;
+}
+}
