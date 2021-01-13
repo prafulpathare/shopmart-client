@@ -42,7 +42,7 @@ export class SearchComponent implements OnInit {
   }
 
   loadSearchResult(){
-    this.http.get(this.mainServ.getProductApi()+"products?page="+this.pageNumber+"&sort="+this.sort+"&q="+this.q.toLocaleLowerCase())
+    this.http.get(this.mainServ.getProductApi()+"/search?page="+this.pageNumber+"&sort="+this.sort+"&q="+this.q.toLocaleLowerCase())
         .subscribe(data => {
           console.log(data)
           this.products = <Product[]>data['products'];

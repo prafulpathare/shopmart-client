@@ -20,22 +20,6 @@
         </form>
     </div>
 
-    <div *ngIf="status == 1" >
-        <div style="padding: 10px;margin: 0 0 30px 0;">
-            Shopmart has sent token on <b>{{addEmailForm.controls['email'].value}}</b>
-        </div>
-        <form class="col-md offset-md" [formGroup]="confirmEmailForm" (ngSubmit)="confirmEmail()">
-            <h4 class="title">Confirm email</h4>
-            <hr class="divisor">
-            <div class="form-group">
-                <input type="number" class="form-control"  aria-describedby="fnameHelp" placeholder="Token" 
-                    formControlName="token"
-                />
-            </div>
-            <button type="submit" class="btn btn-primary topBtn">Confirm Email</button>
-        </form>
-    </div>
-
     <div *ngIf="status == 2" >	
         <form class="col-md offset-md" [formGroup]="signUpForm" (ngSubmit)="makeSignUp()">
             <h4 class="title">Create new Account</h4>
@@ -63,6 +47,11 @@
             <div class="form-group">
                 <input type="password" class="form-control"  placeholder="Password"
                     formControlName="password"
+                />
+            </div>
+            <div class="form-group">
+                <input type="number" class="form-control"  placeholder="Token"
+                    formControlName="token"
                 />
             </div>
            

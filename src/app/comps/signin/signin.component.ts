@@ -32,7 +32,7 @@ export class SigninComponent implements OnInit {
   }
 
   signIn() {
-    this.http.post(this.mainServ.getUserApi() + "authenticate", {
+    this.http.post("http://127.0.0.1:8080/user/authenticate", {
       "email": this.signInForm.controls['email'].value,
       "password": this.signInForm.controls['password'].value
     }).subscribe(

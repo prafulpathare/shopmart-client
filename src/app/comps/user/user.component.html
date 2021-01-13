@@ -1,6 +1,7 @@
 <div *ngIf="updateForm >= 1" style="position: fixed;background: #000;opacity: 0.85;z-index: 999;width:100%;height: 100vh;"></div>
 
-<div *ngIf="updateForm >= 1" style="position: fixed;background: #fff;width:360px;z-index: 1111;top: 10vh; left: calc(50% - 180px);border-radius: 3px; padding: 5px 0 20px; ">
+<div *ngIf="updateForm >= 1" style="position: fixed;background: #fff;min-width:420px;z-index: 1111;top: 10vh; left: calc(50% - 180px);border-radius: 3px; padding: 5px 0 20px; ">
+	<div style="font-size: 18px;text-align: center;line-height: 70px;">{{openFormTitle}}</div>
 	<!-- update name -->
 	<form *ngIf="updateForm == 1" class="col-md offset-md" [formGroup]="signForm" (ngSubmit)="updateUserName()">
 		<input type="text" class=""
@@ -19,8 +20,9 @@
 			placeholder="Update contact" formControlName="contact" />
 		  <button type="submit" class="btn btn-primary">Update</button>
 	</form>
-	<!-- update home addr -->
-	<form *ngIf="updateForm == 4" class="col-md offset-md" [formGroup]="homeAddrForm" (ngSubmit)="updateHomeAddr()">
+	
+	<!-- add address -->
+	<form *ngIf="updateForm == 6" class="col-md offset-md address-form" [formGroup]="addressForm" (ngSubmit)="addAddress();">
 		<input type="text" class=""
 			placeholder="Address line 1" formControlName="line_one" />
 		<input type="text" class=""
@@ -33,26 +35,10 @@
 			placeholder="State" formControlName="state" />
 		<input type="text" class=""
 			placeholder="Pincode" formControlName="pincode" />
-		  <button type="submit" class="btn btn-primary">Update Home Address</button>
-	</form>
-	<!-- update office addr -->
-	<form *ngIf="updateForm == 5" class="col-md offset-md" [formGroup]="officeAddrForm" (ngSubmit)="updateOfficeAddr()">
-		<input type="text" class=""
-			placeholder="Address line 1" formControlName="line_one" />
-		<input type="text" class=""
-			placeholder="Address line 2" formControlName="line_two" />
-		<input type="text" class=""
-			placeholder="Address line 3" formControlName="line_three" />
-		<input type="text" class=""
-			placeholder="City" formControlName="city" />
-		<input type="text" class=""
-			placeholder="State" formControlName="state" />
-		<input type="text" class=""
-			placeholder="Pincode" formControlName="pincode" />
-		<button type="submit" class="btn btn-primary">Update Office Address</button>
+		<button type="submit" class="btn btn-primary">Submit</button>
 	</form>
 
-	<a title="Close" (click)="updateForm = 0" style="color: red;display: block;position: absolute;right: 10px;bottom: 10px;cursor:pointer;"><i class="fa fa-times" style="color: red;font-size: 15px;"></i></a>
+	<a title="Close" (click)="updateForm = 0" style="color: red;display: block;position: absolute;right: 18px;bottom: 18px;cursor:pointer;"><i class="fa fa-times" style="color: red;font-size: 15px;"></i></a>
 </div>
 
 
@@ -82,19 +68,19 @@
 			<div class="edfr">
 				<div class="txtc" style="font-size: 22px;">
 					{{serv.user.name}}
-					<a title="Update Bio" class="update-btn" (click)="updateForm = 1" ><i class="fa fa-pencil"></i></a>
+					<a title="Update Bio" class="update-btn" (click)="updateForm = 1;openFormTitle='Change name';" ><i class="fa fa-pencil"></i></a>
 				</div>
 			</div>
 
 			<div class="edfr" style="padding: 0 10px;">
 				<i class="fa fa-envelope" aria-hidden="true"></i> 
 				<span class="txtc">{{serv.user.email}}</span>
-				<a title="Update email" class="update-btn" (click)="updateForm = 2" ><i class="fa fa-pencil"></i></a>
+				<a title="Update email" class="update-btn" (click)="updateForm = 2;openFormTitle='Update email'" ><i class="fa fa-pencil"></i></a>
 			</div>
 			<div class="edfr" style="padding:0 10px;">
 				<i class="fa fa-phone" aria-hidden="true"> </i> 
 				<span class="txtc">{{serv.user.contact}}</span>
-				<a title="Update contact" class="update-btn" (click)="updateForm = 3" ><i class="fa fa-pencil"></i></a>
+				<a title="Update contact" class="update-btn" (click)="updateForm = 3;openFormTitle='Update contact';" ><i class="fa fa-pencil"></i></a>
 			</div>
 			<div class="edfr">
 				<div class="hdsd">
@@ -103,7 +89,7 @@
 					<a title="Update Home Address" class="update-btn" (click)="updateForm = 4" ><i class="fa fa-pencil"></i></a>
 				</div>
 				<div class="txtc" *ngIf="!serv.user.home_address">
-					<a href="#">Add home address</a>
+					<a class="csr" (click)="address_type='HOME';updateForm = 6;openFormTitle='Add home address';">Add home address</a>
 				</div>
 				<div class="txtc" *ngIf="serv.user.home_address">
 					<div class="pafl">
@@ -123,8 +109,8 @@
 					Office Address
 					<a title="Update Office Address" class="update-btn" (click)="updateForm = 5" ><i class="fa fa-pencil"></i></a>
 				</div>
-				<div class="txtc" *ngIf="!serv.user.office_address">
-					<a href="#">Add office address</a>
+				<div class="txtc"  *ngIf="!serv.user.office_address">
+					<a class="csr" (click)="address_type='OFFICE';openFormTitle='Add ofiice address';updateForm = 6;">Add office address</a>
 				</div>
 				<div class="txtc" *ngIf="serv.user.office_address">
 					<div class="pafl">
@@ -150,29 +136,28 @@
 	<div class="pdgf orderspane">
 		<div style="font-weight: normal;font-size: 20px;">My Orders</div>
 		<hr />
-		<div *ngIf="orders.length < 1" style="height: 100vh;position: relative;text-align: center;">
+		<div *ngIf="serv.user.orders.length < 1" style="height: 100vh;position: relative;text-align: center;">
 			No Orders yet.
 			<!-- <img src="https://www.seekpng.com/png/detail/287-2873882_png-royalty-free-empty-box-clipart.png" style="position: absolute;margin: auto;"> -->
 		</div>
-		<div *ngIf="orders.length >= 1">
+		<div *ngIf="serv.user.orders.length >= 1">
 
-			<div *ngFor="let order of orders" style="line-height: 30px;padding: 0 10px;max-width: 720px;">
+			<div *ngFor="let order of serv.user.orders" style="line-height: 30px;padding: 0 10px;max-width: 720px;">
 				<div style="color: #000;font-size:15px;">
-					Order no.: {{order.orderid}}
+					Order no.: {{order.order_id}}
 
-					<i title="Cancel order" class="csr fa fa-trash" style="color: red;float: right;" (click)="delOrder(order.orderid)"></i>
+					<i title="Cancel order" class="csr fa fa-trash" style="color: red;float: right;" (click)="delOrder(order.order_id)"></i>
 				</div>
 
-				<div class="ordPrd" *ngFor="let item of order.orderedPrds" style="padding: 10px; line-height: 27px;margin: 0;">
-					<div class="pkdf">
-						<span [innerHTML]="prdServ.getProductNameFromId(item.productId)"></span>
-					</div>
-
-					<div class="pkdf">Product [{{item.productId}}]</div>
+				<div class="ordPrd" *ngFor="let item of order.order_items" style="padding: 10px; line-height: 27px;margin: 0;">
+					
+					<a [routerLink]="['/product/', item.order_item_id]">
+						<div class="pkdf" style="font-size: 16px;">{{item.name}}</div>
+					</a>
 					<div style="display: flex;">
 						<div style="flex: 2;">
 							<div>Price</div>
-							<div>{{item.productPrice.toFixed(2).toLocaleString('en-IN')}}</div>
+							<div>{{item.price.toFixed(2)}}</div>
 						</div>
 						<div style="flex: 2;">
 							<div>Qty</div> 
@@ -182,7 +167,7 @@
 							<div >Total</div>
 							<div>
 								<i class="fa fa-rupee" style="margin:0;font-size: 13px;"></i>
-								{{item.totalPrice.toFixed(2).toLocaleString('en-IN')}}
+								{{item.total.toFixed(2)}}
 							</div>
 						</div>
 					</div>
@@ -191,17 +176,39 @@
 				<div class="odap" style="line-height: 30px;display: flex;">
 					<div style="flex: 7;">	
 						<div style="font-weight: bold;">Delivery Address</div>
-						<div style="line-height: 20px;">{{order.delivery_address}}</div>
+						<div style="line-height: 20px;">
+							{{order.address.line_one}}
+							{{order.address.line_two}}
+							{{order.address.line_three}}
+							{{order.address.city}}
+							{{order.address.state}}
+							{{order.address.pincode}}
+						</div>
 					</div>
 					<div style="flex: 4;text-align: right;color: green;font-weight: bold;">
 						<div >Order Total</div>
 						<i class="fa fa-rupee" style="margin:0;font-size: 17px;"></i>
 						<span style="font-size: 18px;">
-							{{order.total.toFixed(2).toLocaleString('en-IN')}}
+							{{order.total.toFixed(2)}}
 						</span>	
 					</div>
 				</div>
-				
+				<!-- payment option used -->
+				<div style="line-height: 120px;" class="paymet-choice">
+					<img *ngIf="order.payment_option == 'MASTERCARD'" title="Payment done" src="https://hvacinds.com/wp-content/uploads/2017/04/Credit-Card-Logos.jpg" />
+					<img *ngIf="order.payment_option == 'PAYPAL'" title="Payment done" src="https://1000logos.net/wp-content/uploads/2017/05/Paypal-Logo.png" />
+					<img *ngIf="order.payment_option == 'CASH_ON_DELIVERY'" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7gcAITOfNhKNPmlIQzOX6jgrP9FgFxY8Kyg&usqp=CAU" />
+
+				</div>
+				<!-- dates -->
+				<div>
+					<div>
+						Ordered on <b>{{ mainServ.getDate(order.date_created)}}</b> 
+					</div>
+					<div>
+						will be delivered on or before <b>{{mainServ.getDate(order.delivery_date)}}</b>
+					</div>
+				</div>
 				<hr />
 			</div>
 		</div>

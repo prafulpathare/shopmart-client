@@ -31,3 +31,8 @@ body{
 .fa{
 	margin-right: 4px;
 }
+
+
+.address-form input{
+	text-transform: capitalize;
+}

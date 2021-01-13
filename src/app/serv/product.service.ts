@@ -15,7 +15,7 @@ export class ProductService {
 
   cnt: number = 0;
   getProductFromId(pid: string) {
-      return this.http.get<Product>(this.mainServ.getProductApi()+"product?pid="+pid);
+      return this.http.get<Product>(this.mainServ.getProductApi()+"/"+pid);
   }
   getProductNameFromId(pid: string){
     console.log(this.cnt);

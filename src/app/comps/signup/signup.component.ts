@@ -14,20 +14,18 @@ export class SignupComponent implements OnInit {
 	err: string;
 	err2: string;
 
-	status: number = 0;
+	status: number = 2;
 
 	addEmailForm = new FormGroup({
 		email: new FormControl('')
-	});
-	confirmEmailForm = new FormGroup({
-		token: new FormControl('')
 	});
 	signUpForm = new FormGroup({
 		uid: new FormControl(''),
 		full_name: new FormControl(''),
 		email: new FormControl(''),
 		contact: new FormControl(''),
-		password: new FormControl('')
+		password: new FormControl(''),
+		token: new FormControl(''),
 	});
 
 	constructor(
@@ -46,39 +44,38 @@ export class SignupComponent implements OnInit {
 
 	makeSignUp(){
 		
-		this.http.post(this.mainServ.getUserApi() + "register", {
+		this.http.post(this.mainServ.getUserApi() + "/register", {
 	      "uid": this.signUpForm.controls['uid'].value,
 	      "name": this.signUpForm.controls['full_name'].value,
 	      "email": this.signUpForm.controls['email'].value,
 	      "contact": this.signUpForm.controls['contact'].value,
 	      "password": this.signUpForm.controls['password'].value,
+	      "token": this.signUpForm.controls['token'].value,
 	    }).subscribe(
-	      data => {
-	        this.router.navigate(['/signin']);
+	      user => {
+	      	if(user['email'].length > 5) {
+	      		this.router.navigate(['/signin']);
+	      	}
 	      },
 	      error => {
 	      	console.log(error)
 	      }
 	    )
 	}
-	confirmEmail(){
-		this.status = 2;
-	}
-	addEmail(){
+	addEmail() {
 		this.err2 = null;
 		var email = this.addEmailForm.controls['email'].value;
 		this.http.post(
-			"http://127.0.0.1:8080/user/add-email",
+			"http://127.0.0.1:8080/utils/email-verification",
 			email
-		).subscribe(data => {
-			if(data['status'] == 500){
-				this.err2 = "User already exists"
+		).subscribe(
+			data => {
+				this.status = 2;
+			},
+			err =>  {
+				if(err.status == 302) this.err2 = "user already exists";
 			}
-			if(data['status'] == 200){
-				this.status = 1;
-				this.signUpForm.get('email').setValue(this.addEmailForm.controls['email'].value);
-			}
-		})
+		)
 	}
 
 }

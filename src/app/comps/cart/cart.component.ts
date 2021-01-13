@@ -15,19 +15,16 @@ import { MainService } from 'src/app/serv/main.service';
 })
 export class CartComponent implements OnInit {
 
-    cart: Cart;
-    itemQty: number[] = [1,2,3,4,5,6,7,8,9];
+    payment_option: string = "CASH_ON_DELIVERY";
 
-    showCustomAddressBox: boolean = false;
-
-  customAddrForm = new FormGroup({
-      line_one: new FormControl(''),
-      line_two: new FormControl(''),
-      line_three: new FormControl(''),
-      city: new FormControl(''),
-      state: new FormControl(''),
-      pincode: new FormControl('')
-  });
+    newAddressForm = new FormGroup({
+        line_one: new FormControl(''),
+        line_two: new FormControl(''),
+        line_three: new FormControl(''),
+        city: new FormControl(''),
+        state: new FormControl(''),
+        pincode: new FormControl('')
+    });
 
     constructor(
         public router: Router,
@@ -36,72 +33,65 @@ export class CartComponent implements OnInit {
         public prdServ: ProductService,
         public mainServ: MainService,
         public http: HttpClient
-        ) {
+    ) {
     }
 
     ngOnInit(): void {
         this.mainServ.showMegaMenu = false;
     }
 
-    getUserInfo() {
-        this.http.post(
-            this.mainServ.getUserApi()+'user',
-            {},
-            {
-                headers:  this.serv.getHeaders()
-            }
-            ).subscribe(data => {
-                console.log(data)
-            }
-        );
-    }
-
-    checkOut(){
-        var checkOut = new CheckOut();
+    checkOut() {
+        this.serv.getUserInfo();
+        var order = new Order();
         this.cartServ.cart.items.forEach(item => {
-            var checkoutItem = new CheckOutItem();
-            checkoutItem.productId = item._id;
-            checkoutItem.quantity = item.noofitems;
-            checkOut.items.push(checkoutItem);
+            var oitem = new OrderItem();
+            oitem.order_item_id = item._id;
+            oitem.quantity = item.quantity
+            order.order_items.push(oitem);
         });
-        checkOut.delivery_address = 
-            this.cartServ.cart.deliveryaddr.line_one+", "+
-            this.cartServ.cart.deliveryaddr.line_two+", "+
-            this.cartServ.cart.deliveryaddr.line_three+", "+
-            this.cartServ.cart.deliveryaddr.city+", "+
-            this.cartServ.cart.deliveryaddr.state+", "+
-            this.cartServ.cart.deliveryaddr.pincode+".";
+        order.address = this.cartServ.cart.address;
+        order.payment_option = this.payment_option;
+        order.payed = order.payment_option == "CASH_ON_DELIVERY" ? false : true;
         this.http.post(
-            'http://127.0.0.1:8080/order/checkout', 
-            checkOut,
+            'http://127.0.0.1:8080/order',
+            order,
             {
-                headers:  this.serv.getHeaders()
+                headers: this.serv.getHeaders()
             }
-            ).subscribe(data => {
-                console.log(data);
-                this.cartServ.emptyCart();
-                this.router.navigate(['/user']);
-            }
+        ).subscribe(data => {
+            this.cartServ.emptyCart();
+            this.serv.getUserInfo();
+            this.router.navigate(['/user']);
+        }
         );
     }
-    saveDelvAddress(){
-        this.cartServ.cart.deliveryaddr = new Address();
-        this.cartServ.cart.deliveryaddr.line_one = this.customAddrForm.controls['line_one'].value;
-        this.cartServ.cart.deliveryaddr.line_two = this.customAddrForm.controls['line_two'].value;
-        this.cartServ.cart.deliveryaddr.line_three = this.customAddrForm.controls['line_three'].value;
-        this.cartServ.cart.deliveryaddr.city = this.customAddrForm.controls['city'].value;
-        this.cartServ.cart.deliveryaddr.state = this.customAddrForm.controls['state'].value;
-        this.cartServ.cart.deliveryaddr.pincode = this.customAddrForm.controls['pincode'].value;
+    saveCartAddress() {
+        this.cartServ.cart.address = new Address();
+        this.cartServ.cart.address.line_one = this.newAddressForm.controls['line_one'].value;
+        this.cartServ.cart.address.line_two = this.newAddressForm.controls['line_two'].value;
+        this.cartServ.cart.address.line_three = this.newAddressForm.controls['line_three'].value;
+        this.cartServ.cart.address.city = this.newAddressForm.controls['city'].value;
+        this.cartServ.cart.address.state = this.newAddressForm.controls['state'].value;
+        this.cartServ.cart.address.pincode = this.newAddressForm.controls['pincode'].value;
+    }
+
+    asd(){
+        console.log("skodk")
+        console.log(this.newAddressForm.value)
     }
 
 }
 
 
-export class CheckOut{
-    items: CheckOutItem[] = [];
-    delivery_address: string;
+export class Order {
+    order_items: OrderItem[] = [];
+    address: Address;
+    payed: boolean = false;
+    date_created: Date;
+    delivery_date: Date;
+    payment_option: string;
 }
-export class CheckOutItem{
-    productId: string;
-    quantity: number = 0;
+export class OrderItem {
+    order_item_id: string;
+    quantity: number = 1;
 }

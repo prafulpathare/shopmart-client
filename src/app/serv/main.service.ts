@@ -7,7 +7,7 @@ export class MainService {
 
   cntr = 0;
   cdn_uri: string = "http://127.0.0.1/cdn.shopmart/";
-  logo_uri: string = "http://127.0.0.1/cdn.shopmart/static/logo.png";
+  logo_uri: string = "https://www.seekpng.com/png/detail/429-4290324_website-development-company-in-delhi-ecommerce-website-logo.png";
   profile_upload_uri: string = "http://127.0.0.1/cdn.shopmart/upload_profile.php";
   showMegaMenu: boolean = true;
 
@@ -17,11 +17,16 @@ export class MainService {
 
   }
 
+  getDate(timestamp) {
+    // return new Date(timestamp).toLocaleDateString() + ", " + new Date(timestamp).toLocaleTimeString();
+    return new Date(timestamp).toLocaleDateString();
+  }
+
   getProductApi(){
-    return 'http://127.0.0.1:3200/';
+    return 'http://127.0.0.1:3200/product';
   }
   getUserApi(){
-    return 'http://127.0.0.1:8080/user/';
+    return 'http://127.0.0.1:8080/customer';
   }
   getReviewsApi(){
     return 'http://127.0.0.1:8080/review';

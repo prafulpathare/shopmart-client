@@ -45,6 +45,15 @@ input{
 	background: transparent;
 }
 
+.address-pane{
+	display: flex;
+	vertical-align: top;
+}
+
+.address-pane-2{
+	flex: 3;
+	margin-left: 15px;	
+}
 
 .addr-opt-wrp{
 	flex: 1;
@@ -73,4 +82,33 @@ input{
 .pay-opt > span > img {
 	height: 35px;
 	margin-left: 5px;
+}
+
+
+
+
+@media only screen and (min-width: 300px) and (max-width: 720px)  {
+	body {
+	}
+		
+	.address-pane{
+		display: block;
+	}
+
+	.address-pane > div {
+		flex: none;
+		display: block;
+	}
+
+	.addr-opt-wrp{
+		flex: none;
+	}
+	.addr-opt-wrp > div.csr {
+		padding: 10px;
+
+		display: inline-block;
+	}
+	.address-pane-2{
+		margin: 0;
+	}
 }

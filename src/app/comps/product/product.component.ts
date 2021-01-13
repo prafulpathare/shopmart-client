@@ -74,7 +74,7 @@ export class ProductComponent implements OnInit {
 	}
 	getProducts(prd: Product[]) {
 		// http://127.0.0.1:3000/products?q=
-		this.http.get<Product[]>(this.mainServ.getProductApi() + "products?q=").subscribe(data => {
+		this.http.get<Product[]>(this.mainServ.getProductApi() + "/search?q=").subscribe(data => {
 			for (var i = 0; i < data["products"].length; i++) {
 				prd.push(new Product(
 					data["products"][i]._id,

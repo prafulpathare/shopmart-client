@@ -15,13 +15,16 @@ export class UserComponent implements OnInit {
 
 	seller: any;
 	updateForm: number = 0;
-	orders: any[] = [];
+	address_type = "UNKNOWN";
+	openFormTitle = "Add";
 
-	infoForm = new FormGroup({
-		name : new FormControl(''),
-		contact : new FormControl(''),
-		home_address : new FormControl(''),
-		office_address : new FormControl(''),
+	addressForm = new FormGroup({
+		line_one : new FormControl(''),
+		line_two : new FormControl(''),
+		line_three : new FormControl(''),
+		state : new FormControl(''),
+		pincode : new FormControl(''),
+		city : new FormControl('')
 	});
 
 	constructor(
@@ -36,49 +39,35 @@ export class UserComponent implements OnInit {
 		console.log("jwt-token",localStorage.getItem("jwt"));
 		if (localStorage.getItem("jwt") === null) {
 			this.router.navigate(['/signin'])
-		} else {
-			this.getOrders();
 		}
         this.mainServ.showMegaMenu = false;
 	}
 
-	getOrders() {
-		this.orders = [];
-		this.http.get<any[]>(
-			'http://127.0.0.1:8080/order',
-			{
-				headers:  this.serv.getHeaders()
-			}
-		).subscribe(data => {
-			console.log(data);
-			this.orders = data;
-		});
-	}
 
-	updateUserInfo() {
+	addAddress() {
+
 		this.http.post(
-			'http://127.0.0.1:8080/user/update',
+			'http://127.0.0.1:8080/address',
 			{
-				"name" : this.infoForm.controls['name'].value,
-				"home_address" : this.infoForm.controls['home_address'].value,
-				"office_address" : this.infoForm.controls['office_address'].value
+				"line_one" : this.addressForm.controls['line_one'].value,
+				"line_two" : this.addressForm.controls['line_two'].value,
+				"line_three" : this.addressForm.controls['line_three'].value,
+				"state" : this.addressForm.controls['state'].value,
+				"pincode" : this.addressForm.controls['pincode'].value,
+				"city" : this.addressForm.controls['city'].value,
+				"address_type": this.address_type
 			},
 			{
 				headers:  this.serv.getHeaders()
 			}
 		).subscribe(data => {
 			console.log(data)
-			this.serv.user.name = data['name'];
-			this.serv.user.email = data['email'];
-			this.serv.user.contact = data['contact'];
-			this.serv.user.home_address = data['home_address'];
-			this.serv.user.office_address = data['office_address'];
 			this.updateForm = 0;
+			this.serv.getUserInfo();
 		}, err => {
 			console.log(err)
 		});
 	}
-
 
 	selectedFile : File = null;
 	onFileSelected(event){
@@ -86,7 +75,7 @@ export class UserComponent implements OnInit {
 
 		const fd = new FormData();
 		fd.append('profile_img', this.selectedFile, this.selectedFile.name);
-		fd.append('uid', this.serv.user.uid.toString());
+		fd.append('uid', this.serv.user.user_id.toString());
 		
 		this.http.post(this.mainServ.profile_upload_uri, fd)
 		.subscribe(res => {
@@ -99,30 +88,18 @@ export class UserComponent implements OnInit {
 	}
 
 	delOrder(orderid: number){
-		this.http.post(
-			"http://127.0.0.1:8080/order/delete",
-			orderid
-			,
+		this.http.delete(
+			"http://127.0.0.1:8080/order/"+orderid,
 			{
 				headers:  this.serv.getHeaders()
 			}
-		).subscribe(data => {
-			this.getOrders();
-		})
+		).subscribe(
+			data => {
+				this.serv.getUserInfo()
+			},
+			err => console.log(err)
+		)
 	}
 
 }
 
-export class OrderItem{
-	public id: string;
-	public name: string;
-	public noofitems: number;
-	public totalprice: number;
-}
-export class Order{
-	public id: number;
-	public deliveryaddr: string;
-	public finalprice: number;
-	public userid: number;
-	public orderItems: OrderItem[] = [];
-}

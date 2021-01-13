@@ -6,7 +6,7 @@ a.update-btn{
 	padding: 10px;
 }
 .pdgf{
-	max-width: 360px;
+	width: 360px;
 	display: inline-block;
 	vertical-align: top;
 }
@@ -21,8 +21,9 @@ a.update-btn{
 	text-transform: capitalize;
 	line-height: 40px;
 }
-.pass{
-
+.paymet-choice img {
+	height: 50px;
+	margin-left: 10px;
 }
 .edfr{
 	padding:10px;
@@ -42,6 +43,13 @@ a.update-btn{
 .fa{
 	margin-right: 10px;
 }
+
+label{
+	display: block;
+}
+label > input {
+	display: inline;
+}
 input{
 	display: block;
 	width: 100%;
@@ -50,7 +58,11 @@ input{
 	margin-top: 10px;
 	outline: none;
 	border: 1px solid #eee;
-	background: #f6f6f6;
+	background: #f0f0f0;
+}
+
+input:focus{
+	border-color: blue;
 }
 button[type=submit]{
 	margin-top: 15px;

@@ -8,7 +8,7 @@ import { MainService } from './main.service';
   providedIn: 'root'
 })
 export class UserService {
-  cntr:number = 0;
+  cntr: number = 0;
   user: User = new User();
   profile_loc: string = 'http://127.0.0.1/cdn.shopmart/profiles/';
 
@@ -22,24 +22,38 @@ export class UserService {
   }
 
   getUserInfo() {
+
     this.cntr = this.cntr + 1;
     this.http.get(
       this.mainServ.getUserApi(),
       {
         headers: this.getHeaders()
       }
-    ).subscribe(data => {
+    ).subscribe(user => {
+      console.log(user)
+
       this.user.isAuthenticated = true;
-      this.user.uid = data['user']['uid'];
-      this.user.profile = data['user']['isprofile'] == 1 ? this.profile_loc+data['user']['uid']+'.png?mode='+this.cntr : this.profile_loc+'default.png';
-      this.user.name = data['user']['name'];
-      this.user.email = data['user']['email'];
-      this.user.contact = data['user']['contact'];
-      this.user.home_address = data['addresses'][1] ? data['addresses'][1] : null;
-      this.user.office_address = data['addresses'][0] ? data['addresses'][0] : null;
-      this.cartServ.cart.deliveryaddr = data['addresses'][1] ?  data['addresses'][1] : null;
+      this.user.user_id = user['user_id'];
+      this.user.profile = user['is_profile'] == 1 ? this.profile_loc + user['user_id'] + '.png?mode=' + this.cntr : this.profile_loc + 'default.png';
+      this.user.name = user['name'];
+      this.user.email = user['email'];
+      console.log(384348)
+
+      this.user.contact = user['contact'];
+
+      this.user.home_address = null;
+      this.user.office_address = null;
+      for (var i = 0; i < user['addresses'].length; i++) {
+        if (user['addresses'][i].address_type == "HOME") this.user.home_address = user['addresses'][i];
+        if (user['addresses'][i].address_type == "OFFICE") this.user.office_address = user['addresses'][i];
+      }
+
+      this.user.orders = user['orders'];
+
+      console.log("user", this.user)
     }
     );
+
   }
   logout() {
     localStorage.clear();
@@ -65,36 +79,47 @@ export class UserService {
 }
 
 export class User {
-  public uid: number;
+  public user_id: number;
   public name: string;
   public isAuthenticated: boolean = false;
   public email: string;
   public contact: string;
-  public isSeller: boolean = false;
   public profile: string;
   public home_address: Address;
   public office_address: Address;
-  public delivery_address: Address;
+  public orders: Order[] = [];
 
-  constructor(){
+  constructor() {
     this.home_address = new Address();
     this.office_address = new Address();
-    this.delivery_address = new Address();
   }
 
 }
 
-export class Address{
-  public addrid: number = 0;
-  public uid: number = 0;
+export class Address {
+  public address_id: number = 0;
   public line_one: string = "";
   public line_two: string = "";
   public line_three: string = "";
-  public city:  string = "";
+  public city: string = "";
   public state: string = "";
-  public pincode: number = null;
+  public pincode: string = null;
+  public address_type: string;
+}
 
-  toStr(){
-    return "["+this.addrid+"] "+this.line_one+", "+this.line_two+", "+this.line_three+", "+this.city+", "+this.state+" - "+this.pincode+".";
-  }
+
+export class OrderItem {
+  public order_item_id: string;
+  public name: string;
+  public price: number;
+  public quantity: number;
+  public total: number;
+}
+export class Order {
+  public order_id: number;
+  public address: Address;
+  public payment_option: string;
+  public payed: boolean;
+  public total: number;
+  public order_items: OrderItem[] = [];
 }
