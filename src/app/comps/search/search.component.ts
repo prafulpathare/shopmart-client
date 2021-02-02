@@ -5,6 +5,7 @@ import { CartService } from 'src/app/serv/cart.service';
 import { MainService } from 'src/app/serv/main.service';
 import { Product } from 'src/app/serv/product.service';
 import { UserService } from 'src/app/serv/user.service';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-search',
@@ -12,7 +13,18 @@ import { UserService } from 'src/app/serv/user.service';
   styleUrls: [
     './search.component.css',
     '../home/home.component.css'
-  ]
+  ],
+  animations: [
+    trigger('fadeIn', [
+      state('void', style({
+        opacity: 0
+      })),
+      state('larger', style({
+        opacity: 1
+      })),
+      transition('void <=> *',animate(200))
+     ])
+    ]
 })
 export class SearchComponent implements OnInit {
 
@@ -36,13 +48,12 @@ export class SearchComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    this.q = this.route.snapshot.paramMap.get('q');
-    console.log(this.q)
     this.loadSearchResult();
   }
 
   loadSearchResult(){
-    this.http.get(this.mainServ.getProductApi()+"/search?page="+this.pageNumber+"&sort="+this.sort+"&q="+this.q.toLocaleLowerCase())
+    this.products = [];
+    this.http.get(this.mainServ.getProductApi()+"/search?page="+this.pageNumber+"&sort="+this.sort+"&q="+this.mainServ.search_query.toLocaleLowerCase())
         .subscribe(data => {
           console.log(data)
           this.products = <Product[]>data['products'];
@@ -53,10 +64,7 @@ export class SearchComponent implements OnInit {
           this.isLast = data['last'];
         } );
   }
-  reload(){
-     this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
-     this.router.navigate(['/search', this.q]));
-  }
+  
   setSortBy(sort: string){
       this.sort = sort;
       this.loadSearchResult();

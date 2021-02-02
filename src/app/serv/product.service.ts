@@ -29,12 +29,14 @@ export class Product{
   name: string;
   company: string;
   price: number;
+  is_approved: boolean = false;
   imgurl: string [] = [];
   description: string [] = [];
 
-  constructor(id, name, imgurl, descs, price){
+  constructor(id, name, imgurl, is_approved, descs, price){
       this._id = id;
       this.name = name;
+      this.is_approved = is_approved;
       this.imgurl = imgurl;
       this.description = descs;
       this.price = price;

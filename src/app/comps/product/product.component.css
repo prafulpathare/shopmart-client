@@ -28,13 +28,15 @@
 }
 .prd-dtls{
     margin-left: 20px;
-
+    width: 420px;
 }
 .name{
     font-size: 22px;
 }
 .company{
     font-style: italic;
+    font-size: 16px;
+    font-weight: bold;
     line-height: 50px;
 }
 .price{
@@ -73,8 +75,13 @@
 .wvpa{
     margin-left: 20px;    
 }
+.cart-button-pane{
+    min-width: 320px; height: 500px;position: relative;max-width: 100%;max-height: 100%;
+}
 
-
+.cart-button-pane>div{
+    position: absolute;width: 240px;height: 10px; left:0;right:0;top:0;bottom:0;margin: auto;
+}
 
 @media only screen and (min-width: 300px) and (max-width: 720px)  {
 body {
@@ -119,8 +126,24 @@ body {
     height: 60px;
     margin-right: 10px;
 }
-.
 .prd-dtls{
     margin: 0;
+    width: 100%;
 }
+
+
+.cart-button-pane {
+    position: unset;
+    height: 100px;
+    min-width: 100%;
+}
+
+.cart-button-pane>div{
+    padding: 20px 0;
+    position: unset;
+    min-width: 100%;
+
+}
+
+
 }

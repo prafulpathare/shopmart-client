@@ -32,11 +32,11 @@ export class SigninComponent implements OnInit {
   }
 
   signIn() {
-    this.http.post("http://127.0.0.1:8080/user/authenticate", {
+    this.http.post("http://127.0.0.1:8080/customer/authenticate", {
       "email": this.signInForm.controls['email'].value,
       "password": this.signInForm.controls['password'].value
     }).subscribe(
-      data => {
+      data => { console.log(data)
         localStorage.setItem("jwt", "Bearer " + data['token']);
         console.log("jwt", localStorage.getItem("jwt"));
         this.serv.user.isAuthenticated = true;

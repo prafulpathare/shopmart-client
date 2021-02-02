@@ -45,6 +45,7 @@ export class HomeComponent implements OnInit {
           data["products"][i]._id,
           data["products"][i].name,
           data["products"][i].imgurl,
+          data["products"][i].is_approved,
           data["products"][i].description,
           data["products"][i].price
         ));

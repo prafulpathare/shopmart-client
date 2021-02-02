@@ -1,8 +1,10 @@
-<div class="container">
-    <!-- <h1 class="tp-logo" [routerLink]="['/']">shop<span class="color-1">Mart</span></h1> -->
-    <img  [routerLink]="['/']" src="{{mainServ.logo_uri}}" style="height: 50px;display:block;margin: 50px auto;" />
+<div class="container" style="position: relative;">
+<!-- <h1 class="tp-logo" [routerLink]="['/']">shop<span class="color-1">Mart</span></h1> -->
+<div  style="max-width: 360px;position: absolute;margin:10vh auto 0 auto;left: 0;right: 0;bottom: 0;top: 0;">
 
-    <div class="row mgTp" style="max-width: 360px;margin-left: auto;margin-right: auto;">
+    <img  [routerLink]="['/']" src="{{mainServ.logo_uri}}" style="height: 50px;display: block;margin: 0 auto;" />
+
+    <div class="row mgTp" style="margin-left: auto;margin-right: auto;">
     	
         <form class="col-md offset-md" [formGroup]="signInForm" (ngSubmit)="signIn()">
             <h4 class="title">Sign in</h4>
@@ -38,5 +40,7 @@
     <div class="toggDv">
         Dont have an account ? <a [routerLink]="['/signup']">Sign Up</a>
     </div>
+
+</div>
 </div>
 

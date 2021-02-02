@@ -25,11 +25,16 @@ export class HeaderComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+    
   }
 
   mkSearch(){
-      var q = this.searchForm.controls['q'].value;
-      this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
-      this.router.navigate(['/search', q]))
+      this.mainServ.search_query = this.searchForm.controls['q'].value;
+      this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=> {
+        if(this.router.url.includes('/seach')) {
+            console.log(2378)
+        }
+        else this.router.navigate(['/search', this.mainServ.search_query])
+      })
   }
 }

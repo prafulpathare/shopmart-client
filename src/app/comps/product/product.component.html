@@ -26,8 +26,9 @@
 	</div>
 			
 	<div *ngIf="showHover"  style="
+		background-color: #fff;
 		box-shadow: 0 1px 1px 1px #eeee;width:750px;height:600px; position: fixed;left:40%;
-		background-image: url({{bigImg}});
+		background-image: url({{bigImg}}); z-index: 4444;background-repeat: no-repeat;
 	"></div>
 
 	<!-- thumbnails for mobile -->
@@ -43,13 +44,15 @@
 		</div>
 	</div>
 	
-	<div class="pdfui prd-dtls">
+	<div class="pdfui prd-dtls" >
 		<div>		
 			<div>
-				<div class="name">{{product.name}}</div>
+				<div class="name">
+					{{product.name}}
+					<i title="product approved" *ngIf="product.is_approved == true" class="fa fa-check-circle" style="color: green;margin-left:5px;font-size:15px;"></i>
+				</div>
 				<div>
-					by <span class="company">{{product.company}}</span>
-					<i class="fa fa-check-circle" style="color: green;margin-left:5px;font-size:15px;"></i>
+					<span class="company">{{product.company}}</span>
 				</div>
 
 				<div>
@@ -68,27 +71,25 @@
                     </span>
                 </div>
 				<ul style="margin: 15px;max-width: 360px;">
-					<li *ngFor="let des of product.description">{{des}}</li>
+					<li *ngFor="let des of product.description" style="padding: 5px 0;">{{des}}</li>
 				</ul>
 				<!-- <a (click)="cartServ.cart.addToCart(product)" class="btn" style="display: inline-block;float: left;color: #FFF;">Add to Cart</a> -->
 			</div>
 		</div>	
 	</div>
-	<div class="pdfui">
-
-	</div>
-	<div class="pdfui">
-		<div style="padding: 30px;">
+	
+	<div class="pdfui cart-button-pane">
+		<div >
 			<button
 				class="btn btn-primary"
 				*ngIf="!cartServ.cart.productExists(product._id)"
 				(click)="cartServ.cart.addToCart(product)"
-				style="display: block;width: 100%"
+				style="display: block;width: 100%;font-weight: bold;"
 			>Add to Cart</button>
 			<button
 				class="btn btn-primary"
 				*ngIf="cartServ.cart.productExists(product._id)"
-				style="display:block;width: 100%;background: green; color: #FFF;border:none;"
+				style="display:block;width: 100%;background: green; color: #FFF;border:none;font-weight: bold;"
 			>Added to Cart</button>
 		</div>
 	</div>
@@ -109,15 +110,15 @@
 	</div>
 	
 	<div class="ibsp" style="clear: both;margin-top: 10px;">
-		<span class="odba" style="font-weight: bold;"> {{reviews_count}} reviews.</span>
+		<span class="odba" style="font-weight: bold;"> {{reviews.length}} reviews.</span>
 		<!-- reviews  -->
 		<br />
-		<div *ngFor="let review of reviews" class="ovsp">
+		<div @fadeIn *ngFor="let review of reviews" class="ovsp">
 			<div class="wspa">
 				<span class="gapg">{{review.name}}</span>
 				<span class="gxpg">
 					<i class="fa fa-clock-o" aria-hidden="true"></i>
-					{{review.date_created}}
+					{{mainServ.getDate(review.date_created)}}
 				</span>
 			</div>
 			<div class="wshe">{{review.review_txt}}</div>

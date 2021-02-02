@@ -7,11 +7,24 @@ import { HttpClient } from '@angular/common/http';
 import { Address, UserService } from 'src/app/serv/user.service';
 import { Cart } from 'src/app/serv/cart.service';
 import { MainService } from 'src/app/serv/main.service';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
     selector: 'app-cart',
     templateUrl: './cart.component.html',
-    styleUrls: ['./cart.component.css']
+    styleUrls: ['./cart.component.css'],
+
+	animations: [
+		trigger('fadeIn', [
+		  state('void', style({
+			opacity: 0
+		  })),
+		  state('larger', style({
+			opacity: 1
+		  })),
+		  transition('void <=> *',animate(200))
+		 ])
+		]
 })
 export class CartComponent implements OnInit {
 

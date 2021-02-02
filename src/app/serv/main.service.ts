@@ -5,6 +5,8 @@ import { Injectable } from '@angular/core';
 })
 export class MainService {
 
+  search_query: string = "";
+
   cntr = 0;
   cdn_uri: string = "http://127.0.0.1/cdn.shopmart/";
   logo_uri: string = "https://www.seekpng.com/png/detail/429-4290324_website-development-company-in-delhi-ecommerce-website-logo.png";

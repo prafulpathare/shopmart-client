@@ -1,6 +1,6 @@
-<div *ngIf="updateForm >= 1" style="position: fixed;background: #000;opacity: 0.85;z-index: 999;width:100%;height: 100vh;"></div>
+<div @fadeInCover *ngIf="updateForm >= 1" style="position: fixed;background: #fff;opacity: 0.85;z-index: 999;width:100%;height: 100vh;"></div>
 
-<div *ngIf="updateForm >= 1" style="position: fixed;background: #fff;min-width:420px;z-index: 1111;top: 10vh; left: calc(50% - 180px);border-radius: 3px; padding: 5px 0 20px; ">
+<div @fadeInForm *ngIf="updateForm >= 1" style="user-select: none; position: fixed;background: #fff;min-width:420px;z-index: 1111;top: 15vh; overflow: hidden; left: calc(50% - 180px);border-radius: 3px; padding: 5px 0 20px; ">
 	<div style="font-size: 18px;text-align: center;line-height: 70px;">{{openFormTitle}}</div>
 	<!-- update name -->
 	<form *ngIf="updateForm == 1" class="col-md offset-md" [formGroup]="signForm" (ngSubmit)="updateUserName()">

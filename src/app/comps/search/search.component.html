@@ -50,7 +50,7 @@
         <div style="line-height: 50px;padding-left:10px;"><b>{{noOfProducts}}</b> results found for "{{q}}"</div>
         <!-- for desktop -->
         <div *ngIf="!mainServ.isMobile()">
-            <div *ngFor="let prd of products" style="
+            <div @fadeIn *ngFor="let prd of products" style="
                 display: flex;padding: 10px;
                 border-bottom: 1px solid #ddd;
             ">
@@ -64,9 +64,12 @@
                 <div style="
                     flex: 6;padding: 10px;margin-left: calc(5% - 10px);
                 ">
-                    <a [routerLink]="['/product', prd._id]">
-                        <span class="prdName color-1" style="font-size: 18px;">{{prd.name}}</span>
-                    </a>
+                    <div>
+                        <a [routerLink]="['/product', prd._id]">
+                            <span class="prdName color-1" style="font-size: 18px;">{{prd.name}}</span>
+                        </a>
+                        <i title="product approved" *ngIf="prd.is_approved == true" class="fa fa-check-circle" style="color: green;margin-left:5px;font-size:15px;"></i>
+                    </div>
                     <div class="prdComp" style="font-style: italic;font-weight: bold;">{{prd.company}}</div>
                     <div class="prdRating" style="margin:10px 0;max-width:640px;">
                     {{prd.description[0]}}
@@ -91,10 +94,13 @@
                     background-repeat: no-repeat;
                     background-image: url({{prd.imgurl}});
                 "></div>
-                <a [routerLink]="['/product', prd._id]">
-                    <span class="prdName color-1" style="overflow-y: hidden;">{{prd.name}}</span>
-                </a>
-
+                <div>
+                    <a [routerLink]="['/product', prd._id]">
+                        <span class="prdName color-1" style="overflow-y: hidden;">{{prd.name}}</span>
+                    </a>
+                    <i title="product approved" *ngIf="prd.is_approved == true" class="fa fa-check-circle" style="color: green;margin-left:5px;font-size:15px;"></i>
+                </div>
+                
                 <div class="prdPrice" style="color: green;font-weight: bold;vertical-align: top;">
                     <i class="fa fa-rupee" style=""></i>
                     <span >{{prd.price.toLocaleString('en-IN')}}</span>.00

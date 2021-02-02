@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { CartService } from 'src/app/serv/cart.service';
 import { MainService } from 'src/app/serv/main.service';
 import { UserService } from 'src/app/serv/user.service';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
 	selector: 'app-product',
@@ -13,11 +14,23 @@ import { UserService } from 'src/app/serv/user.service';
 	styleUrls: [
 		'../home/home.component.css',
 		'./product.component.css'
-	]
+	],
+
+	animations: [
+		trigger('fadeIn', [
+		  state('void', style({
+			opacity: 0
+		  })),
+		  state('larger', style({
+			opacity: 1
+		  })),
+		  transition('void <=> *',animate(200))
+		 ])
+		]
 })
 export class ProductComponent implements OnInit {
 
-	product = new Product('product id', 'product name', [], [], 0.0);
+	product = new Product('product id', 'product name', [], false, [], 0.0);
 	prd3: Product[] = [];
 
 	bigImg: string;
@@ -26,7 +39,6 @@ export class ProductComponent implements OnInit {
 	zptrY: number = 0;
 
 	// reviews
-	reviews_count: number = 0;
 	reviews: Review[] = [];
 
   // review form 
@@ -65,12 +77,9 @@ export class ProductComponent implements OnInit {
 			this.router.navigate(['/product', pid]));
 	}
 	getReviews() {
-		this.http.get(
-      "http://127.0.0.1:8080/review?productid="+this.route.snapshot.params.pid,
-			).subscribe(data => {
-				this.reviews_count = data['count'];
-				this.reviews = data['reviews'];
-			});
+		this.http.get<Review[]>(
+			"http://127.0.0.1:8080/review/"+this.route.snapshot.params.pid,
+		).subscribe(data => this.reviews = data);
 	}
 	getProducts(prd: Product[]) {
 		// http://127.0.0.1:3000/products?q=
@@ -80,6 +89,7 @@ export class ProductComponent implements OnInit {
 					data["products"][i]._id,
 					data["products"][i].name,
 					data["products"][i].imgurl,
+					data["products"][i].is_approved,
 					data["products"][i].description,
 					data["products"][i].price
 				));
@@ -87,7 +97,7 @@ export class ProductComponent implements OnInit {
 		})
 	}
   addReview(){
-    this.http.post("http://127.0.0.1:8080/review/add", {
+    this.http.post("http://127.0.0.1:8080/review", {
       "product_id": this.product._id,
       "review_txt": this.reviewForm.controls['review_txt'].value
     },
@@ -95,11 +105,7 @@ export class ProductComponent implements OnInit {
         headers:  this.serv.getHeaders()
       }
     ).subscribe(
-      data => {
-          if(data >= 1){
-            this.getReviews();
-          }
-      },
+      data => this.getReviews(),
       error => {
         console.log(error)
       }
@@ -108,7 +114,7 @@ export class ProductComponent implements OnInit {
 }
 
 export class Review {
-	uid: number;
+	review_id: number;
 	name: string;
 	review_txt: string;
 	date_created: Date;

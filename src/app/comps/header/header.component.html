@@ -4,8 +4,8 @@
         <img src="{{mainServ.logo_uri}}" style="width: 120px;" />
     </div>
     <div class="seabx">
-        <form [formGroup]="searchForm" (ngSubmit)="mkSearch()">
-            <input type="text" placeholder="Search..." formControlName="q" />
+        <form [formGroup]="searchForm" (submit)="mkSearch()">
+            <input type="text" (keyup) = "mainServ.search_query = $event.target.value" placeholder="Search..." formControlName="q" value="{{mainServ.search_query}}"  />
         </form>
     </div>
 
